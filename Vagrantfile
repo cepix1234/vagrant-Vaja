@@ -5,6 +5,7 @@
 Vagrant.configure(2) do |config|
 	config.vm.define "server" do |server|
 		server.vm.box = "ubuntu/trusty64"
+		server.vm.network "public_network", use_dhcp_assigned_default_route: true
 		server.vm.network :private_network, ip: "192.168.27.100"
 		server.vm.network :forwarded_port, guest: 80, host: 4567
 		server.vm.provider :virtualbox do |vb|
@@ -16,7 +17,7 @@ Vagrant.configure(2) do |config|
 		end
 		
 	config.vm.define "client" do |client|
-		client.vm.box = "debian/jessie64"
+		client.vm.box = "ubuntu/trusty64"
 		client.vm.network :private_network, ip: "192.168.27.101"
 		client.vm.provider :virtualbox do |vb|
 			 vb.memory = 1024
